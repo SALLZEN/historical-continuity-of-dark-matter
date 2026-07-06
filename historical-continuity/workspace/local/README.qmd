@@ -1,0 +1,32 @@
+---
+format:
+  html:
+    author: "Simon Allzén"
+    title: "Local Assets"
+    subtitle: "_Historical Continuity as Justification for Dark Matter_"
+    theme:
+      dark: darkly
+      light: flatly
+    mainfont: "Fraunces"
+    fontsize: "10pt"
+    code-fold: true
+    code-summary: "Show the code"
+    tabset: true
+    minimal: true
+    max-width: "1600"
+    smooth-scroll: true
+    page-layout: article
+    df-print: kable
+    mermaid:
+      theme: neutral
+
+  gfm:
+    toc: false
+    output-file: README.md
+---
+
+# local
+
+No supplemental paper-specific `local/` subdirectories have been identified yet for `historical-continuity`.
+
+If future migration reveals durable paper-specific assets that do not belong in `data/`, `outputs/`, or `shared-assets/`, they should be added here deliberately.

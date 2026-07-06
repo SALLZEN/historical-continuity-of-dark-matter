@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "paper_slug": "historical-continuity",
+  "workspace_type": "computational",
+  "required_subdirectories": [
+    "code",
+    "config",
+    "data",
+    "outputs",
+    "docs",
+    "local"
+  ],
+  "root_resolution_contract": "shared-assets/code/workspace_rooting"
+}

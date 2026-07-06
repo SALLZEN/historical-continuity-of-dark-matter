@@ -1,0 +1,37 @@
+---
+format:
+  html:
+    author: "Simon Allzén"
+    title: "Workspace Rooting"
+    subtitle: "_Shared Research Infrastructure_"
+    theme:
+      dark: darkly
+      light: flatly
+    mainfont: "Fraunces"
+    fontsize: "10pt"
+    code-fold: true
+    code-summary: "Show the code"
+    tabset: true
+    minimal: true
+    max-width: "1600"
+    smooth-scroll: true
+    page-layout: article
+    df-print: kable
+    mermaid:
+      theme: neutral
+
+  gfm:
+    toc: false
+    output-file: README.md
+---
+
+# workspace_rooting
+
+Shared root-resolution helpers for Python, R, and notebook bootstrap code.
+
+## Contract
+
+- every computational workspace contains `config/workspace.json`
+- helpers find the nearest ancestor containing that file
+- helpers derive sibling paths from the resolved `workspace/` root
+- launch cwd must not be the primary root-resolution mechanism

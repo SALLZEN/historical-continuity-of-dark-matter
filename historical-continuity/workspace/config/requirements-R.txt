@@ -1,0 +1,12 @@
+arrow
+dplyr
+forcats
+ggplot2
+ggsci
+grid
+patchwork
+rcartocolor
+scales
+stringr
+tidyr
+yaml

@@ -1,0 +1,19 @@
+$if(title)$
+\title{$title$}
+$endif$
+
+$if(subtitle)$
+\subtitle{$subtitle$}
+$endif$
+
+% One \author per person
+$for(by-author)$
+  \author$if(it.metadata.affil-id)$[$it.metadata.affil-id$]$endif${$it.name.literal$}
+$endfor$
+
+% Affiliation list with numeric IDs
+$if(by-affiliation)$
+  $for(by-affiliation)$
+    \affil[$it.id$]{$it.name$}
+  $endfor$
+$endif$

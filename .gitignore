@@ -1,0 +1,42 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# R
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+Rplots.pdf
+
+# Env / local secrets
+.env
+.env.*
+!.env.example
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Local temp / cache
+.cache/
+tmp/
+
+# Rebuildable project outputs
+historical-continuity/workspace/data/derived/
+historical-continuity/workspace/outputs/
+historical-continuity/overleaf/
+historical-continuity/paper/main.pdf
+historical-continuity/paper/main.tex
+historical-continuity/paper/assets/figures/
+historical-continuity/paper/assets/tables/ads_summary.tex
+

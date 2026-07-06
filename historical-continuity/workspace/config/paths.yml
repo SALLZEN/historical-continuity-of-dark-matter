@@ -1,0 +1,24 @@
+manuscript_root: ../paper
+
+inputs:
+  papers_parquet: ../../shared-assets/data/processed-data/papers.parquet
+  paper_metrics_long_parquet: ../../shared-assets/data/processed-data/paper_metrics_long.parquet
+  paper_arxiv_classes_parquet: ../../shared-assets/data/processed-data/paper_arxiv_classes.parquet
+  paper_citations_parquet: ../../shared-assets/data/processed-data/paper_citations.parquet
+  lundmark_image: ../paper/assets/images/lundmark_tabell.png
+  libertine_font: ../paper/assets/fonts/LinLibertine_DR.otf
+
+outputs:
+  avg_citations_parquet: data/derived/avg_citations_result.parquet
+  impact_figure_pdf: outputs/manuscript/figures/fig-impact.pdf
+  stratum_figure_pdf: outputs/manuscript/figures/fig-stratum.pdf
+  arxiv_figure_pdf: outputs/manuscript/figures/fig-arxiv.pdf
+  lundmark_image: outputs/manuscript/figures/lundmark_tabell.png
+  ads_summary_tex: outputs/manuscript/tables/ads_summary.tex
+
+sync:
+  figures_dir: ../paper/assets/figures
+  images_dir: ../paper/assets/images
+  tables_dir: ../paper/assets/tables
+  overleaf_figures_dir: ../overleaf/figures
+  overleaf_tables_dir: ../overleaf/tables

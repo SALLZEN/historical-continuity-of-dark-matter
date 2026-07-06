@@ -1,0 +1,57 @@
+
+
+# Historical Continuity Workspace
+
+This workspace is the canonical computational companion for the
+historical-continuity paper.
+
+## Canonical structure
+
+- `code/notebooks/` for the transparent notebook stages
+- `code/scripts/` for readable manuscript-facing R workflows
+- `config/` for path contracts, requirements, and the workspace root
+  marker
+- `data/derived/` for rebuildable paper-local derived data
+- `outputs/manuscript/` for rebuilt figures and tables
+- `docs/` for runbooks and structure maps
+- `local/` for any paper-specific assets that are not shared cross-paper
+
+## Inputs
+
+The active inputs come from `../../shared-assets/data/processed-data/`
+through `config/paths.yml`.
+
+The manuscript asset flow is singular:
+
+- workspace outputs are rebuilt under `outputs/manuscript/`
+- `paper/assets/` is the authoritative manuscript surface
+- `overleaf/` mirrors the synced files from `paper/assets/`
+
+## Setup prerequisite
+
+- Run `../../configure_repo.sh` from the bundle root before using this workspace.
+
+## Build
+
+From this directory:
+
+``` sh
+make assets
+make sync
+make verify
+```
+
+## Notes
+
+- notebooks resolve the workspace through `config/workspace.json`
+- all Python notebooks in this bundle assume the local
+  `historical-continuity-repo` kernel backed by `../../.venv/bin/python`
+- `make` executes notebooks against that same shared `damadi-research`
+  kernel
+- `code/` is the canonical execution surface
+- `config/requirements.txt`, `config/requirements-R.txt`,
+  `config/renv.lock`, and `config/DESCRIPTION` are the live environment
+  contracts
+
+The kernel install step is occasional setup only, not something to run
+before each notebook session.

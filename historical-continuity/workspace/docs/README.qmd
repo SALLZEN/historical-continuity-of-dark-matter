@@ -1,0 +1,178 @@
+---
+format:
+  html:
+    author: "Simon Allzén"
+    title: "Workspace Companion"
+    subtitle: "_Historical Continuity as Justification for Dark Matter_"
+    theme:
+      dark: darkly
+      light: flatly
+    mainfont: "Fraunces"
+    fontsize: "10pt"
+    code-fold: true
+    code-summary: "Show the code"
+    tabset: true
+    minimal: true
+    max-width: "1600"
+    smooth-scroll: true
+    page-layout: article
+    df-print: kable
+    mermaid:
+      theme: neutral
+
+  gfm:
+    toc: false
+    output-file: README.md
+---
+
+## Role
+
+This directory is the canonical computational companion for the
+historical-continuity paper.
+
+Its job is narrow and explicit:
+
+- read the shared ADS backbone through a paper-local interface
+- build one local derived file
+- regenerate manuscript-facing figures and tables
+- sync those assets into the paper directory
+
+See the root project map at
+[`../../docs/project-map.qmd`](../../docs/project-map.qmd) and the local
+structure map at [`repo-map.qmd`](repo-map.qmd).
+
+## Run Modes
+
+### Shortest readable route
+
+From this directory:
+
+```sh
+make assets
+make sync
+make verify
+```
+
+### Manual route
+
+1. `code/notebooks/1.0.0-prepare_avg_citations.ipynb`
+2. `code/notebooks/2.0.0-build_impact_figure.ipynb`
+3. `code/scripts/3.0.0-build_manuscript_assets.R`
+4. sync generated assets into `../paper/assets/` and mirror `overleaf/` from there
+
+## Sequence Summary
+
+### `1.0.0-prepare_avg_citations.ipynb`
+
+**Purpose**
+
+- Build the local derived citation summary used by the later asset
+  stages.
+
+**Reads**
+
+- `../../shared-assets/data/processed-data/papers.parquet`
+- `../../shared-assets/data/processed-data/paper_metrics_long.parquet`
+
+**Writes**
+
+- `data/derived/avg_citations_result.parquet`
+
+### `2.0.0-build_impact_figure.ipynb`
+
+**Purpose**
+
+- Build the impact figure from the shared backbone and the local derived
+  citation summary.
+
+**Reads**
+
+- `../../shared-assets/data/processed-data/papers.parquet`
+- `../../shared-assets/data/processed-data/paper_metrics_long.parquet`
+- `data/derived/avg_citations_result.parquet`
+
+**Writes**
+
+- `outputs/manuscript/figures/fig-impact.pdf`
+
+### `3.0.0-build_manuscript_assets.R`
+
+**Purpose**
+
+- Rebuild the manuscript-facing figures and ADS summary table from the
+  canonical paper-local input surface.
+
+**Reads**
+
+- `../../shared-assets/data/processed-data/papers.parquet`
+- `../../shared-assets/data/processed-data/paper_metrics_long.parquet`
+- `../../shared-assets/data/processed-data/paper_arxiv_classes.parquet`
+- `../../shared-assets/data/processed-data/paper_citations.parquet`
+- `../paper/assets/images/lundmark_tabell.png`
+- `../paper/assets/fonts/LinLibertine_DR.otf`
+
+**Writes**
+
+- `outputs/manuscript/figures/fig-stratum.pdf`
+- `outputs/manuscript/figures/fig-arxiv.pdf`
+- `outputs/manuscript/figures/fig-arxiv-waffle.pdf`
+- `outputs/manuscript/figures/fig-arxiv-waffle-wide.pdf`
+- `outputs/manuscript/figures/fig-bar_waffle_combo_plot.pdf`
+- `outputs/manuscript/tables/ads_summary.tex`
+
+## Inputs And Outputs
+
+### Inputs
+
+- shared backbone read directly from `../../shared-assets/data/processed-data/` through `config/paths.yml`
+- one paper-local derived file in `data/derived/`
+
+### Outputs
+
+- manuscript-facing figures under `outputs/manuscript/figures/`
+- manuscript-facing table under `outputs/manuscript/tables/`
+- authoritative manuscript copies under `../paper/assets/`
+- mirrored Overleaf copies under `../overleaf/`
+
+## Visual Overview
+
+```{mermaid}
+flowchart LR
+    SD["shared-assets/data/processed-data"] --> NB1["1.0.0 prepare avg citations"]
+    NB1 --> DD["data/derived/avg_citations_result.parquet"]
+    DD --> NB2["2.0.0 build impact figure"]
+    SD --> NB2
+    SD --> RS["3.0.0 build manuscript assets"]
+    NB2 --> OUT["outputs/manuscript/"]
+    RS --> OUT
+    OUT --> SYNC["paper/assets/"]
+    SYNC --> OVL["overleaf/"]
+```
+
+## Environment
+
+### Python
+
+Notebook execution uses the environment declared in
+`config/requirements.txt`.
+
+### R
+
+Manuscript asset generation uses:
+
+- `config/renv.lock`
+- `config/DESCRIPTION`
+
+The R script is the authoritative end-to-end regeneration route for the
+manuscript-facing assets.
+
+## Transparency Notes
+
+- Source notebooks are kept clear of saved outputs.
+- Executed notebook copies and notebook-runtime caches live under the
+  hidden `.runtime/` directory.
+- `code/` is the canonical execution surface.
+- The workspace root owns one visible generated-output surface only:
+  `outputs/manuscript/`.
+- The paper consumes synced assets from `paper/assets/`, and Overleaf
+  mirrors that authoritative surface.

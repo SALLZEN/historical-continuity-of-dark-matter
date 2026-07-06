@@ -1,0 +1,46 @@
+# historical-continuity standalone repository
+
+This directory is a self-contained repository bundle for this paper. It is designed for a user who starts with this bundle alone and needs to set up the local environments, rebuild the required intermediate assets, and render the manuscript without relying on the parent `research/` repository. Runtime defaults are rewritten toward recomputation for rebuildable stages; only the explicit repo-mode exceptions remain pre-materialized.
+
+## Layout
+
+- `historical-continuity/`: exported paper directory
+- `shared-assets/`: vendored subset of the shared dependency layer
+- `manifest.resolved.json`: resolved provenance record for this bundle
+- `.venv/`: local Python environment created on demand
+- `bootstrap_python_env.sh`: create the local Python environment from the exported lock file
+- `install_repo_kernel.sh`: optional Jupyter kernel registration for this bundle
+- `configure_repo.sh`: one-command setup for Python, Jupyter, R, and repo prerequisites
+
+## Setup And Rebuild
+
+1. Read `historical-continuity/README.md` first.
+2. From the bundle root, run `./configure_repo.sh`.
+   This single script bootstraps the local Python environment, installs the bundle-local Jupyter kernel, restores the R environment with `renv`, and materializes the declared repo prerequisites.
+   If `python3` resolves to an older interpreter on your machine, rerun with `PYTHON_BIN=python3.11 ./configure_repo.sh`.
+3. If you prefer to run setup manually, the underlying commands are:
+
+   - `./bootstrap_python_env.sh`
+   - `./install_repo_kernel.sh`
+   - `R -q -e 'renv::restore(project = "historical-continuity/workspace", lockfile = "historical-continuity/workspace/renv.lock")'`
+
+4. Read `historical-continuity/workspace/README.md` and run the notebooks/scripts in the documented order to rebuild any workspace-level assets omitted from repo mode.
+5. Read `historical-continuity/README.md` and `historical-continuity/paper/README.md` if present for paper-specific build notes.
+6. After the workspace rebuild, run the manuscript-facing rebuild commands:
+
+   - `Rscript historical-continuity/workspace/code/scripts/3.0.0-build_manuscript_assets.R`
+
+7. Render the manuscript from `historical-continuity/paper/`, for example:
+   - `cd historical-continuity/paper && quarto render main.qmd`
+
+## Python contract
+
+- exported lock file: `historical-continuity/workspace/config/requirements.lock.txt`
+
+## R contract
+
+- exported lock file: `historical-continuity/workspace/renv.lock`
+
+## Provenance
+
+The file `manifest.resolved.json` records the exact shared resources bundled with this export and the bundle-specific rebuild assumptions.

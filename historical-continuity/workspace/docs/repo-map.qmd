@@ -1,0 +1,114 @@
+---
+author: "Simon Allzén"
+title: "Workspace Map"
+subtitle: "_Historical Continuity as Justification for Dark Matter_"
+
+format:
+  html:
+    theme:
+      dark: darkly
+      light: flatly
+    mainfont: "Fraunces"
+    fontsize: "10pt"
+    code-fold: true
+    code-summary: "Show the code"
+    tabset: true
+    minimal: true
+    max-width: "1600"
+    smooth-scroll: true
+    page-layout: article
+    df-print: kable
+    mermaid:
+      theme: neutral
+execute:
+  enabled: false
+---
+
+## Workspace Map
+
+This document maps the local workspace surface for the historical
+continuity paper.
+
+## At a glance
+
+- `config/` defines the paper-local path contract.
+- `code/` is the canonical execution surface.
+- shared project inputs are read directly from `../../shared-assets/data/processed-data/` through `config/paths.yml`.
+- `data/derived/` stores the paper-local rebuildable output surface.
+- `code/notebooks/` provides transparent stagewise derivations.
+- `code/scripts/` contains the plain-language R build route.
+- `outputs/manuscript/` contains the manuscript-facing generated
+  artifacts.
+- `paper/assets/` is the authoritative manuscript asset surface, and
+  `overleaf/` mirrors it.
+
+## Repository Structure
+
+```{text}
+workspace/
+├── README.md
+├── LICENSE
+├── Makefile
+├── code/
+│   ├── notebooks/
+│   └── scripts/
+├── config/
+│   ├── paths.yml
+│   ├── requirements.txt
+│   ├── renv.lock
+│   ├── DESCRIPTION
+│   └── workspace.json
+├── data/
+│   └── derived/
+│       └── avg_citations_result.parquet
+├── outputs/
+│   └── manuscript/
+│       ├── figures/
+│       └── tables/
+└── docs/
+    └── repo-map.qmd
+```
+
+## Structure Chart
+
+```{mermaid}
+flowchart LR
+    A["workspace/"]
+    A --> X["code/"]
+    A --> C["config/"]
+    A --> DD["data/derived/"]
+    A --> SA["../../shared-assets/data/processed-data/"]
+    X --> NB["notebooks/"]
+    X --> RS["scripts/"]
+    A --> O["outputs/"]
+
+    NB --> NB1["1.0.0 prepare avg citations"]
+    NB --> NB2["2.0.0 build impact figure"]
+    RS --> R1["3.0.0-build_manuscript_assets.R"]
+```
+
+## Canonical Process Flow
+
+```{mermaid}
+flowchart LR
+    SD["shared-assets/data/processed-data"] --> N1["1.0.0-prepare_avg_citations.ipynb"]
+    N1 --> D1["data/derived/avg_citations_result.parquet"]
+    D1 --> N2["2.0.0-build_impact_figure.ipynb"]
+    SD --> N2
+    SD --> R1["3.0.0-build_manuscript_assets.R"]
+    N2 --> O1["outputs/manuscript/figures/fig-impact.pdf"]
+    R1 --> O2["outputs/manuscript/figures + tables"]
+    O1 --> P["../paper/assets/"]
+    O2 --> P
+    P --> OVL["../overleaf/"]
+```
+
+## Interpretation Guide
+
+- The stable shared input source is `../../shared-assets/data/processed-data/`, referenced through `config/paths.yml`.
+- The stable local derived interface is `data/derived/`.
+- `outputs/manuscript/` is the visible generated-output root.
+- `paper/assets/` is the manuscript-facing sync target, not the place
+  where workspace computation happens.
+- `overleaf/` mirrors `paper/assets/` rather than reading directly from
+  workspace outputs.

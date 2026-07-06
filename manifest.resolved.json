@@ -1,0 +1,67 @@
+{
+  "paper_id": "historical-continuity",
+  "paper_type": "computational",
+  "export_mode": "repo",
+  "source_paper_dir": "historical-continuity",
+  "shared_resources": [
+    {
+      "source": "shared-assets/data/processed-data",
+      "target": "shared-assets/data/processed-data"
+    },
+    {
+      "source": "shared-assets/code/workspace_rooting",
+      "target": "shared-assets/code/workspace_rooting"
+    }
+  ],
+  "repo_included_resources": [],
+  "repo_materialized_parquet_resources": [
+    {
+      "source": "shared-assets/data/processed-data/papers.parquet",
+      "target": "shared-assets/data/processed-data/papers.parquet",
+      "columns": [
+        "bibcode",
+        "year",
+        "doctype",
+        "abstract"
+      ]
+    },
+    {
+      "source": "shared-assets/data/processed-data/paper_arxiv_classes.parquet",
+      "target": "shared-assets/data/processed-data/paper_arxiv_classes.parquet",
+      "columns": [
+        "bibcode",
+        "class_pos",
+        "arxiv_class",
+        "arxiv_category"
+      ]
+    },
+    {
+      "source": "shared-assets/data/processed-data/paper_metrics_long.parquet",
+      "target": "shared-assets/data/processed-data/paper_metrics_long.parquet",
+      "columns": [
+        "bibcode",
+        "metric",
+        "metric_year",
+        "value"
+      ]
+    },
+    {
+      "source": "shared-assets/data/processed-data/paper_citations.parquet",
+      "target": "shared-assets/data/processed-data/paper_citations.parquet",
+      "columns": [
+        "bibcode",
+        "citing_bibcode"
+      ]
+    }
+  ],
+  "exported_python_lock": "workspace/config/requirements.lock.txt",
+  "repo_excluded_paths": [
+    "outputs",
+    "workspace/outputs",
+    "overleaf"
+  ],
+  "repo_excluded_bundle_paths": [
+    "shared-assets/data/processed-data"
+  ],
+  "repo_runtime_rewrite_rules": []
+}

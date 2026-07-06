@@ -1,0 +1,49 @@
+paper_id: historical-continuity
+paper_type: computational
+repo_exclude_paths:
+  - outputs
+  - workspace/outputs
+  - overleaf
+repo_exclude_bundle_paths:
+  - shared-assets/data/processed-data
+repo_rebuild_commands:
+  - Rscript historical-continuity/workspace/code/scripts/3.0.0-build_manuscript_assets.R
+repo_materialize_parquet_columns:
+  - source: shared-assets/data/processed-data/papers.parquet
+    target: shared-assets/data/processed-data/papers.parquet
+    columns:
+      - bibcode
+      - year
+      - doctype
+      - abstract
+  - source: shared-assets/data/processed-data/paper_arxiv_classes.parquet
+    target: shared-assets/data/processed-data/paper_arxiv_classes.parquet
+    columns:
+      - bibcode
+      - class_pos
+      - arxiv_class
+      - arxiv_category
+  - source: shared-assets/data/processed-data/paper_metrics_long.parquet
+    target: shared-assets/data/processed-data/paper_metrics_long.parquet
+    columns:
+      - bibcode
+      - metric
+      - metric_year
+      - value
+  - source: shared-assets/data/processed-data/paper_citations.parquet
+    target: shared-assets/data/processed-data/paper_citations.parquet
+    columns:
+      - bibcode
+      - citing_bibcode
+shared_resources:
+  - source: shared-assets/data/processed-data
+    target: shared-assets/data/processed-data
+  - source: shared-assets/code/workspace_rooting
+    target: shared-assets/code/workspace_rooting
+rewrite_rules:
+  - path: historical-continuity/paper/main.qmd
+    replacements:
+      - from: "file: header-dm-hist-expl.tex"
+        to: "file: templates/header-dm-hist-expl.tex"
+      - from: "bibliography: Ref.bib"
+        to: "bibliography: references/Ref.bib"

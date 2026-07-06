@@ -1,0 +1,21 @@
+Package: dmhistcompanion
+Type: Project
+Title: Computational Companion for Historical Continuity as Justification for Dark Matter
+Version: 0.0.1
+Authors@R: c(person(given = "Simon", family = "Allzén", role = c("aut", "cre"), email = "simon.allzen@philosophy.su.se"))
+Description: Reproducible scripts and environment metadata for manuscript figures and tables.
+License: file LICENSE
+Encoding: UTF-8
+Imports:
+    arrow,
+    dplyr,
+    forcats,
+    ggplot2,
+    ggsci,
+    grid,
+    patchwork,
+    rcartocolor,
+    scales,
+    stringr,
+    tidyr,
+    yaml
