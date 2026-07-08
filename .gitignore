@@ -26,6 +26,7 @@ Rplots.pdf
 Thumbs.db
 *.swp
 *.swo
+.idea
 
 # Local temp / cache
 .cache/
