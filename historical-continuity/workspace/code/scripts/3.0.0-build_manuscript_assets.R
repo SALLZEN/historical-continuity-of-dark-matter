@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 
-# Canonical manuscript-asset build for the historical-continuity workspace.
+# Manuscript-asset build for the historical-continuity workspace.
 #
 # The script reads the shared ADS backbone plus the local derived citation file,
 # rebuilds the manuscript-facing figures and tables, syncs them into the
